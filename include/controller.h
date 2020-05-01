@@ -66,6 +66,11 @@ namespace wjz_controller{
         //3.2 MPC controller,you should git clone udaicty MPC code:MPC.cpp, MPC.h,ipopt
         void MPC_ACM_Model(Pose_6d &now_pose,std::vector<Pose_6d> &refer_line,Control_Param &param);
 
+	//4.other alogorithm,will to do soon
+        //as we use PID in backcar or narrow place,and MPC in highway or following car as usual
+        //there are also other excellent algorithm you can see
+        //4.1 stanley control from standford:narrow place or highway is ok,achieve easy
+        //4.2 LQR:no good as MPC,no use often
     private:
         //0.for all
         I4 now_i;
