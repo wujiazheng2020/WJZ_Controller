@@ -15,7 +15,7 @@ QQ群：710805413</br>
 4.Udacity MPC: MPC.cc MPC.h 仅MPC需要(just for MPC,if no use,ignore)</br>
 
 # Notice:
-一方面因为版权问题，另一方面，考虑到ipopt及其第三方的安装会让很多linux新手难受，HSL还需要邮件，很多人只需要差分驱动机器人比如扫地机器人的PID，故为了编译方便，Udacity MPC文件需要自己从github下载，我已经写好了框架，有了那个文件，ipopt那些，把'//'取消稍作修改即可。
+一方面因为版权问题，另一方面，考虑到ipopt及其第三方的安装会让很多linux新手难受，HSL还需要邮件，很多人只需要差分驱动机器人比如扫地机器人的PID，故为了编译方便，Udacity MPC文件需要自己从github下载，我已经写好了框架，有了那个文件，ipopt那些，把'//'取消稍作修改即可。</br>
 On the one hand, because of the copyright problem, on the other hand, considering that the installation of ipopt and its third party will make many linux novices uncomfortable, HSL also needs email, many people only need differential drive robots such as PID of sweeping robot, so in order to compile conveniently, udacity MPC files need to be downloaded from GitHub by yourself. I have already written the framework. With that file, ipopt files, just delete '/ /' and make some changes is OK.
 
 # Contents
