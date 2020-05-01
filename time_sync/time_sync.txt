@@ -1,0 +1,72 @@
+if(use_self_sync_){
+                now_time = ros::Time::now().toSec();
+                r_y = newstate.yaw;
+                time_bias = 0.0;
+                while(now_time  - pre_time < 0.0949 + time_bias){
+                    now_time = ros::Time::now().toSec();
+                    r_y = newstate.yaw;
+                    statenow.x = newstate.x;
+                    statenow.y = newstate.y;
+                    statenow.yaw = newstate.yaw;
+                    statenow.v = newstate.v;
+                    lidar_pitch = new_pitch;
+                    a_real = a_realt;
+                    if(lidar_pitch >= 2.0){
+                        a_real = new_a;
+                    }
+                    boost::this_thread::sleep(boost::posix_time::milliseconds(5));
+                }
+                while(now_time  - pre_time >= 0.0949 + time_bias){
+                    now_time = ros::Time::now().toSec();
+                    if(r_y != newstate.yaw){
+                        statenow.x = newstate.x;
+                        statenow.y = newstate.y;
+                        statenow.yaw = newstate.yaw;
+                        statenow.v = newstate.v;
+                        double cal_yaw;
+                        cal_yaw = 0.0;
+                        if(statenow.yaw >= deg2rad(90)){
+                            cal_yaw = deg2rad(360) - statenow.yaw + deg2rad(90);
+                        }
+                        else if(statenow.yaw < deg2rad(90)){
+                            cal_yaw = deg2rad(90) - statenow.yaw;
+                        }
+                        statenow.x += statenow.v*cos(cal_yaw)*(ros::Time::now().toSec() - oss + state_interval);
+                        statenow.y += statenow.v*sin(cal_yaw)*(ros::Time::now().toSec() - oss + state_interval);
+                        statenow.yaw += statenow.v/wheel_base_*tan(steer_real)*(ros::Time::now().toSec() - oss + state_interval);
+//                        statenow.v += a_real*(ros::Time::now().toSec() - oss + state_interval);
+//                        time_bias = ros::Time::now().toSec() - oss;
+                        time_bias = 0.0;
+                        break;
+                    }
+                    if(now_time  - pre_time >= 0.10501 + time_bias){
+                        ROS_WARN("Location Information Time Out!");
+                        double cal_yaw;
+                        cal_yaw = 0.0;
+                        if(statenow.yaw >= deg2rad(90)){
+                            cal_yaw = deg2rad(360) - statenow.yaw + deg2rad(90);
+                        }
+                        else if(statenow.yaw < deg2rad(90)){
+                            cal_yaw = deg2rad(90) - statenow.yaw;
+                        }
+                        statenow.x += statenow.v*cos(cal_yaw)*(ros::Time::now().toSec() - oss + state_interval);
+                        statenow.y += statenow.v*sin(cal_yaw)*(ros::Time::now().toSec() - oss + state_interval);
+                        statenow.yaw += statenow.v/wheel_base_*tan(steer_real)*(ros::Time::now().toSec() - oss + state_interval);
+//                        statenow.v += a_real*(ros::Time::now().toSec() - oss + state_interval);
+//                        time_bias = -0.0501;
+                        time_bias = 0.0;
+                        break;
+                    }
+                    boost::this_thread::sleep(boost::posix_time::milliseconds(5));
+                }
+                if(file_controler_.time[0] == new_tra_){
+                    ROS_WARN("Planning Information Time Out!");
+                }
+
+                new_tra_ = file_controler_.time[0];
+                a_real = a_realt;
+                if(lidar_pitch >= 2.0){
+                    a_real = new_a;
+                }
+                pre_time = ros::Time::now().toSec();
+            }
