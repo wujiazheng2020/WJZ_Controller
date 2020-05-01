@@ -1,0 +1,4 @@
+<launch>
+        <node pkg="WJZ_Controller" type="WJZ_Controller" name="WJZ_Controller" output="screen">
+	</node>
+</launch>

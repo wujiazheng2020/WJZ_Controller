@@ -49,6 +49,7 @@ namespace wjz_controller{
         X1 path_OK;
         void Set_Wheel_Base(R8 wb);
         Pose_6d Simulation_Update(Pose_6d &now_pose,Control_Param &param);
+        //for MPC only
         R8 polyeval(Eigen::VectorXd coeffs, R8 x);
         Eigen::VectorXd polyfit(Eigen::VectorXd xvals, Eigen::VectorXd yvals,I4 order);
 
